@@ -5,7 +5,7 @@ This package provides LockVoid's `eslint.config.mjs` as an extensible shared con
 ## Installation
 
 ```bash
-npm install --save-dev eslint-config-lockvoid
+npm install --save-dev eslint eslint-plugin-import @lockvoid/eslint-config
 ```
 
 ## Usage
