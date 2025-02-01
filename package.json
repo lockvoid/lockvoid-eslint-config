@@ -3,7 +3,7 @@
   "version": "0.3.2",
   "author": "LockVoid",
   "license": "MIT",
-  "main": "eslint.config.mjs",
+  "main": "src/index.mjs",
   "type": "module",
   "engines": {
     "node": "22.x"
