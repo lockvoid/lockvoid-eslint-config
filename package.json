@@ -1,0 +1,23 @@
+{
+  "name": "@lockvoid/esling-config",
+  "version": "0.1.0",
+  "author": "LockVoid",
+  "license": "MIT",
+  "main": "eslint.config.js",
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "devDependencies": {
+    "eslint": "^9.19.0",
+    "eslint-plugin-import": "^2.31.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.19.0",
+    "eslint-plugin-import": "^2.31.0"
+  }
+}
