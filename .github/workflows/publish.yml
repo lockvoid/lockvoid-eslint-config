@@ -29,7 +29,7 @@ jobs:
 
       - name: Commit Version Bump
         run: |
-          git config --global user.name "LockCoid /dev/null"
+          git config --global user.name "LockVoid /dev/null"
           git config --global user.email "dev/null@lockvoid.com"
           git add package.json
           git commit -m "Bump version to $(node -p "require('./package.json').version")"

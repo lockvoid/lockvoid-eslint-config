@@ -1,5 +1,5 @@
 {
-  "name": "@lockvoid/esling-config",
+  "name": "@lockvoid/eslint-config",
   "version": "0.2.0",
   "author": "LockVoid",
   "license": "MIT",
@@ -19,5 +19,8 @@
   "peerDependencies": {
     "eslint": "^9.19.0",
     "eslint-plugin-import": "^2.31.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
