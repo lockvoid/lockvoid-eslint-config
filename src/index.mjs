@@ -31,7 +31,7 @@ export default {
         'pathGroups': [
           {
             'group': 'internal',
-            'pattern': '#some-path/**',
+            'pattern': '#*/**',
             'position': 'before',
           },
         ],
