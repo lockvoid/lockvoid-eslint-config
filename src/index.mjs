@@ -30,6 +30,11 @@ export default {
 
         'pathGroups': [
           {
+            'pattern': '@*/**',
+            'group': 'external',
+            'position': 'after',
+          },
+          {
             'group': 'internal',
             'pattern': '#*/**',
             'position': 'before',
