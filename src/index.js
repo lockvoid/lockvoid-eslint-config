@@ -7,37 +7,30 @@ export default {
 
   rules: {
     "comma-dangle": ["error", "always-multiline"],
-    "quotes": ["error", "double", { "avoidEscape": true }],
-    "semi": ["error", "always"],
+    quotes: ["error", "double", { avoidEscape: true }],
+    semi: ["error", "always"],
 
     "import/order": [
       "error",
 
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-        ],
+        groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
 
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true,
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
         },
 
-        "pathGroups": [
+        pathGroups: [
           {
-            "group": "external",
-            "pattern": "@*/**",
-            "position": "after",
+            group: "external",
+            pattern: "@*/**",
+            position: "after",
           },
           {
-            "group": "internal",
-            "pattern": "#*/**",
-            "position": "before",
+            group: "internal",
+            pattern: "#*/**",
+            position: "before",
           },
         ],
       },
