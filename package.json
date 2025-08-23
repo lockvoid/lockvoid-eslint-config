@@ -3,10 +3,11 @@
   "version": "0.5.4",
   "author": "LockVoid",
   "license": "MIT",
-  "main": "src/index.mjs",
+  "main": "src/index.js",
   "type": "module",
   "engines": {
-    "node": "22.x"
+    "node": "22.x",
+    "pnpm": "10.x"
   },
   "scripts": {
     "lint": "eslint",
