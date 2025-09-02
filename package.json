@@ -1,6 +1,6 @@
 {
   "name": "@lockvoid/eslint-config",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "author": "LockVoid ~●~",
   "license": "MIT",
   "main": "src/index.js",
