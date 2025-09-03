@@ -2,16 +2,27 @@ import importPlugin from "eslint-plugin-import";
 
 const configs = [];
 
+let typescript;
+
 try {
-  const typescript = await import("typescript-eslint");
-  configs.push(...typescript.configs.recommended);
+  typescript = await import("typescript-eslint");
 } catch {
   // TypeScript not available
 }
 
-try {
-  const vue = await import("eslint-plugin-vue");
+if (typescript) {
+  configs.push(...typescript.configs.recommended);
+}
 
+let vue;
+
+try {
+  vue = await import("eslint-plugin-vue");
+} catch {
+  // Vue not available
+}
+
+if (vue) {
   configs.push(...vue.configs["flat/recommended"]);
 
   configs.push({
@@ -22,13 +33,17 @@ try {
       "vue/multi-word-component-names": "off",
     },
   });
-} catch {
-  // Vue not available
 }
 
-try {
-  const tailwindcss = await import("eslint-plugin-tailwindcss");
+let tailwindcss;
 
+try {
+  tailwindcss = await import("eslint-plugin-tailwindcss");
+} catch (error) {
+  // Tailwind not available
+}
+
+if (tailwindcss) {
   configs.push(...tailwindcss.configs["flat/recommended"]);
 
   configs.push({
@@ -37,14 +52,13 @@ try {
       "tailwindcss/no-custom-classname": "off",
     },
   });
-} catch {
-  // Tailwind not available
 }
 
 configs.push({
   plugins: {
     import: importPlugin,
   },
+
   rules: {
     "comma-dangle": ["error", "always-multiline"],
     "quotes": ["error", "double", { avoidEscape: true }],
