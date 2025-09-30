@@ -10,8 +10,8 @@
     "pnpm": "10.x"
   },
   "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "eslint": "^9.19.0",

@@ -1,8 +1,16 @@
-name: Publish to NPM
+name: Publish
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: "Bump version"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -25,9 +33,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bump Minor Version
+      - name: Bump Version
         run: |
-          pnpm version patch --no-git-tag-version
+          pnpm version ${{ github.event.inputs.version_type }} --no-git-tag-version
 
       - name: Commit Version Bump
         run: |
