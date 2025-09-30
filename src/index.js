@@ -11,7 +11,13 @@ try {
 }
 
 if (typescript) {
-  configs.push(...typescript.configs.recommended);
+  configs.push(...(typescript.default?.configs?.recommended || typescript.configs?.recommended || []));
+
+  configs.push({
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  });
 }
 
 let vue;
@@ -23,7 +29,7 @@ try {
 }
 
 if (vue) {
-  configs.push(...vue.configs["flat/recommended"]);
+  configs.push(...(vue.default?.configs?.["flat/recommended"] || vue.configs?.["flat/recommended"] || []));
 
   configs.push({
     files: ["**/*.vue"],
@@ -44,7 +50,7 @@ try {
 }
 
 if (tailwindcss) {
-  configs.push(...tailwindcss.configs["flat/recommended"]);
+  configs.push(...(tailwindcss.default?.configs?.["flat/recommended"] || tailwindcss.configs?.["flat/recommended"] || []));
 
   configs.push({
     rules: {
