@@ -1,109 +1,111 @@
 import importPlugin from "eslint-plugin-import";
 
-const configs = [];
-
-let typescript;
+let typescriptImport;
 
 try {
-  typescript = await import("typescript-eslint");
+  typescriptImport = await import("typescript-eslint");
 } catch {
-  // TypeScript not available
+  // noop
 }
 
-if (typescript) {
-  configs.push(...(typescript.default?.configs?.recommended || typescript.configs?.recommended));
-
-  configs.push({
-    rules: {
-      "@typescript-eslint/no-explicit-any": "off",
-    },
-  });
-}
-
-let vue;
+let vueImport;
 
 try {
-  vue = await import("eslint-plugin-vue");
+  vueImport = await import("eslint-plugin-vue");
 } catch {
-  // Vue not available
+  // noop
 }
 
-if (vue) {
-  configs.push(...(vue.default?.configs?.["flat/recommended"] || vue.configs?.["flat/recommended"]));
-
-  configs.push({
-    files: ["**/*.vue"],
-    rules: {
-      "vue/script-indent": ["error", 2, { baseIndent: 1, switchCase: 1 }],
-      "vue/max-attributes-per-line": ["error", { singleline: 10, multiline: 10 }],
-      "vue/multi-word-component-names": "off",
-    },
-  });
-}
-
-let tailwindcss;
+let tailwindcssImport;
 
 try {
-  tailwindcss = await import("eslint-plugin-tailwindcss");
+  tailwindcssImport = await import("eslint-plugin-tailwindcss");
 } catch (error) {
-  // Tailwind not available
+  // noop
 }
 
-if (tailwindcss) {
-  configs.push(...(tailwindcss.default?.configs?.["flat/recommended"] || tailwindcss.configs?.["flat/recommended"]));
+export default ({ typescript = false, vue = false, tailwindcss = false } = {}) => {
+  const configs = [];
+
+  if (typescript) {
+    configs.push(...(typescriptImport.default?.configs?.recommended || typescriptImport.configs?.recommended));
+
+    configs.push({
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off",
+      },
+    });
+  }
+
+  if (vue) {
+    configs.push(...(vueImport.default?.configs?.["flat/recommended"] || vueImport.configs?.["flat/recommended"]));
+
+    configs.push({
+      files: ["**/*.vue"],
+      rules: {
+        "vue/script-indent": ["error", 2, { baseIndent: 1, switchCase: 1 }],
+        "vue/max-attributes-per-line": ["error", { singleline: 10, multiline: 10 }],
+        "vue/multi-word-component-names": "off",
+      },
+    });
+  }
+
+  if (tailwindcss) {
+    configs.push(...(tailwindcssImport.default?.configs?.["flat/recommended"] || tailwindcssImport.configs?.["flat/recommended"]));
+
+    configs.push({
+      rules: {
+        "tailwindcss/classnames-order": ["error", { callees: ["tc", "tv"] }],
+        "tailwindcss/no-custom-classname": "off",
+      },
+    });
+  }
 
   configs.push({
+    plugins: {
+      import: importPlugin,
+    },
+
     rules: {
-      "tailwindcss/classnames-order": ["error", { callees: ["tc", "tv"] }],
-      "tailwindcss/no-custom-classname": "off",
+      "comma-dangle": ["error", "always-multiline"],
+      "quotes": ["error", "double", { avoidEscape: true }],
+      "semi": ["error", "always"],
+
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "type",
+          ],
+
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+
+          pathGroups: [
+            {
+              pattern: "@/**",
+              group: "internal",
+              position: "before",
+            },
+
+            {
+              pattern: "{~,#}/**",
+              group: "internal",
+              position: "before",
+            },
+          ],
+        },
+      ],
     },
   });
+
+  return configs;
 }
-
-configs.push({
-  plugins: {
-    import: importPlugin,
-  },
-
-  rules: {
-    "comma-dangle": ["error", "always-multiline"],
-    "quotes": ["error", "double", { avoidEscape: true }],
-    "semi": ["error", "always"],
-
-    "import/order": [
-      "error",
-      {
-        groups: [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "type",
-        ],
-
-        alphabetize: {
-          order: "asc",
-          caseInsensitive: true,
-        },
-
-        pathGroups: [
-          {
-            pattern: "@/**",
-            group: "internal",
-            position: "before",
-          },
-
-          {
-            pattern: "{~,#}/**",
-            group: "internal",
-            position: "before",
-          },
-        ],
-      },
-    ],
-  },
-});
-
-export default configs;
