@@ -108,4 +108,4 @@ export default ({ typescript = false, vue = false, tailwindcss = false } = {}) =
   });
 
   return configs;
-}
+};
